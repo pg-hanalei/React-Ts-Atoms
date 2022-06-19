@@ -1,4 +1,4 @@
-import React, { ReactChild } from "react";
+import React, { ReactChild, memo } from "react";
 
 interface Tab {
   title: string;
@@ -11,8 +11,9 @@ interface Props {
   children?: ReactChild | ReactChild[];
 }
 
-export default function Tabs(props: Props) {
+export const Tabs: React.VFC<Props> = memo((props) => {
   const { onChange, tabs = [], selectIndex = 0, children } = props;
+
   return (
     <div className="filter">
       <div className="categoryList-wrap">
@@ -34,4 +35,4 @@ export default function Tabs(props: Props) {
       </div>
     </div>
   );
-}
+});
