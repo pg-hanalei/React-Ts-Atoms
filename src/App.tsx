@@ -1,48 +1,51 @@
-import { Tabs } from "./components/atoms/Tabs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 import { CheckBoxList } from "./components/atoms/Checkbox";
 import { Selectbox } from "./components/atoms/Selectbox";
 import Button from "./components/atoms/Button";
+import { useTabs } from "./hooks/useTabs";
+
 export default function App() {
   // TAB  //////////////////////////////////////////////////////////////////////////////////////////
 
   // 呼ばれるコンポーネントの用意
-  const Tab1 = () => {
+  const Tab1 = useCallback(() => {
     return (
       <div>
         <h1>tab1</h1>
       </div>
     );
-  };
+  }, []);
 
-  const Tab2 = () => {
+  const Tab2 = useCallback(() => {
     return (
       <div>
         <h1>tab2</h1>
       </div>
     );
-  };
+  }, []);
 
-  //　　タブで選択中のindex
-  const [tabIndex, setTabIndex] = useState(0);
-  // タブで呼ばれたコンポーネントのstate
-  const [selectTabsComponent, setSelectTabsComponent] = useState(<Tab1 />);
+  const Tab3 = useCallback(() => {
+    return (
+      <div>
+        <h1>tab3</h1>
+      </div>
+    );
+  }, []);
 
-  // タブのindexが変更されたらコンポーネントを呼び出す
-  useEffect(() => {
-    console.log(tabIndex);
-    switch (tabIndex) {
-      case 0:
-        setSelectTabsComponent(<Tab1 />);
-        break;
-      case 1:
-        setSelectTabsComponent(<Tab2 />);
-        break;
-      default:
-        setSelectTabsComponent(<Tab1 />);
-        break;
-    }
-  }, [tabIndex]);
+  const tabTitles = [
+    { title: "bbbbbbb" },
+    { title: "test" },
+    { title: "tes3" }
+  ];
+  const ArrayTabsComponent = [Tab1, Tab2, Tab3];
+
+  //表示させたいタブ、　初期表示のindex
+  const { tabIndex, renderTabsComponent } = useTabs(
+    tabTitles,
+    ArrayTabsComponent,
+    0
+  );
+
   // /TAB  //////////////////////////////////////////////////////////////////////////////////////////
 
   // /Selectbox  //////////////////////////////////////////////////////////////////////////////////////////
@@ -63,13 +66,7 @@ export default function App() {
   return (
     <div className="App">
       <h1>Tabs</h1>
-      <Tabs
-        tabs={[{ title: "bbbbbbb" }, { title: "test" }]}
-        selectIndex={tabIndex}
-        onChange={(index) => setTabIndex(index)}
-      >
-        {selectTabsComponent}
-      </Tabs>
+      {renderTabsComponent()}
 
       <h1>チェックボックス</h1>
       <CheckBoxList />

@@ -1,4 +1,4 @@
-import React, { ReactChild, memo } from "react";
+import React, { memo } from "react";
 
 interface Tab {
   title: string;
@@ -8,11 +8,11 @@ interface Props {
   tabs?: Tab[];
   selectIndex?: number;
   onChange: (index: number) => void;
-  children?: ReactChild | ReactChild[];
+  selectTabsComponent: JSX.Element;
 }
 
 export const Tabs: React.VFC<Props> = memo((props) => {
-  const { onChange, tabs = [], selectIndex = 0, children } = props;
+  const { onChange, tabs = [], selectIndex = 0, selectTabsComponent } = props;
 
   return (
     <div className="filter">
@@ -31,7 +31,7 @@ export const Tabs: React.VFC<Props> = memo((props) => {
             </React.Fragment>
           ))}
         </ul>
-        {children}
+        {selectTabsComponent}
       </div>
     </div>
   );
