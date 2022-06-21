@@ -84,6 +84,9 @@ export const CheckBoxList = memo(() => {
     const dataPushArray = Object.entries(checkedItems).reduce(
       (pre, [key, value]) => {
         value && pre.push(key);
+        // if (value) {
+        //   pre.push(key);
+        // }
         return pre;
       },
       [] as string[]

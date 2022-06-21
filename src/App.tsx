@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useCallback } from "react";
+import { useCallback } from "react";
 import { CheckBoxList } from "./components/atoms/Checkbox";
 import { Selectbox } from "./components/atoms/Selectbox";
 import Button from "./components/atoms/Button";
@@ -33,18 +33,13 @@ export default function App() {
   }, []);
 
   const tabTitles = [
-    { title: "bbbbbbb" },
-    { title: "test" },
-    { title: "tes3" }
+    { title: "test1", component: Tab1 },
+    { title: "test2", component: Tab2 },
+    { title: "test3", component: Tab3 }
   ];
-  const ArrayTabsComponent = [Tab1, Tab2, Tab3];
 
   //表示させたいタブ、　初期表示のindex
-  const { tabIndex, renderTabsComponent } = useTabs(
-    tabTitles,
-    ArrayTabsComponent,
-    0
-  );
+  const { tabIndex, TabsComponent } = useTabs(tabTitles, 1);
 
   // /TAB  //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -66,7 +61,8 @@ export default function App() {
   return (
     <div className="App">
       <h1>Tabs</h1>
-      {renderTabsComponent()}
+      {tabIndex}
+      <TabsComponent />
 
       <h1>チェックボックス</h1>
       <CheckBoxList />

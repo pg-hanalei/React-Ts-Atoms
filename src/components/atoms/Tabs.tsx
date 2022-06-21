@@ -6,16 +6,16 @@ interface Tab {
 
 interface Props {
   tabs?: Tab[];
-  selectIndex?: number;
+  defaultIndex?: number;
   onChange: (index: number) => void;
-  selectTabsComponent: JSX.Element;
+  selectTabsComponent: () => JSX.Element;
 }
 
 export const Tabs: React.VFC<Props> = memo((props) => {
-  const { onChange, tabs = [], selectIndex = 0, selectTabsComponent } = props;
+  const { onChange, tabs = [], defaultIndex = 0, selectTabsComponent } = props;
 
   return (
-    <div className="filter">
+    <div className="">
       <div className="categoryList-wrap">
         <ul className="categoryList">
           {tabs.map((tab, index) => (
@@ -23,7 +23,7 @@ export const Tabs: React.VFC<Props> = memo((props) => {
               <li className="categoryList-item">
                 <button
                   onClick={() => onChange(index)}
-                  className={selectIndex === index ? "active" : ""}
+                  className={defaultIndex === index ? "active" : ""}
                 >
                   {tab.title}
                 </button>
@@ -31,8 +31,8 @@ export const Tabs: React.VFC<Props> = memo((props) => {
             </React.Fragment>
           ))}
         </ul>
-        {selectTabsComponent}
       </div>
+      {selectTabsComponent()}
     </div>
   );
 });
