@@ -28,7 +28,7 @@ export const useTabs = (
       tabs={tabTitles.map((title) => title)}
       defaultIndex={tabIndex}
       onChange={onClickTabs}
-      selectTabsComponent={tabTitles[tabIndex].component}
+      selectedComponent={tabTitles[tabIndex].component}
     />
   ));
 

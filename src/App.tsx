@@ -1,10 +1,11 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { CheckBoxList } from "./components/atoms/Checkbox";
 import { Selectbox } from "./components/atoms/Selectbox";
 import Button from "./components/atoms/Button";
 import { useTabs } from "./hooks/useTabs";
 
 export default function App() {
+  // console.log("APP");
   // TAB  //////////////////////////////////////////////////////////////////////////////////////////
 
   // 呼ばれるコンポーネントの用意
@@ -55,8 +56,28 @@ export default function App() {
   const defaultValueSelectebox = { value: 2, label: "セレクト2" };
 
   // セレクトボックスの変更でvalueを取得
-  const onChangeSelect = (e) => console.log(e.target.value);
+  const onChangeSelect = useCallback((e) => console.log(e.target.value), []);
   // /Selectbox  //////////////////////////////////////////////////////////////////////////////////////////
+
+  // textbox ///////
+  const [input, setInput] = useState("");
+  // /textbox ///////
+
+  // input ///////////////////////
+
+  const outputConsole = useCallback((input) => {
+    alert(input);
+  }, []);
+
+  const callOutputConsole = useCallback(
+    (input) => {
+      if (!input) return;
+      console.log("outputConsole");
+      outputConsole(input);
+    },
+    [outputConsole]
+  );
+  // /input ///////////////////////
 
   return (
     <div className="App">
@@ -76,13 +97,27 @@ export default function App() {
 
       <h1>ボタン</h1>
       <Button
-        className={""}
+        dataTestId={"button01"}
+        className={"test-button-01"}
         id={"button1"}
         disabled={false}
-        onClick={() => alert("Click")}
+        onClick={() => callOutputConsole(input)}
       >
         ボタン
       </Button>
+
+      <h1>テスト</h1>
+      <span data-testid="test">test</span>
+
+      <h1>Input</h1>
+      <input
+        data-testid="input01"
+        type="text"
+        placeholder="入力してください"
+        defaultValue={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      {input}
     </div>
   );
 }

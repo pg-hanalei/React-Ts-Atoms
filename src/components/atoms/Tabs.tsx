@@ -8,11 +8,11 @@ interface Props {
   tabs?: Tab[];
   defaultIndex?: number;
   onChange: (index: number) => void;
-  selectTabsComponent: () => JSX.Element;
+  selectedComponent: () => JSX.Element;
 }
 
 export const Tabs: React.VFC<Props> = memo((props) => {
-  const { onChange, tabs = [], defaultIndex = 0, selectTabsComponent } = props;
+  const { onChange, tabs = [], defaultIndex = 0, selectedComponent } = props;
 
   return (
     <div className="">
@@ -32,7 +32,7 @@ export const Tabs: React.VFC<Props> = memo((props) => {
           ))}
         </ul>
       </div>
-      {selectTabsComponent()}
+      {selectedComponent()}
     </div>
   );
 });

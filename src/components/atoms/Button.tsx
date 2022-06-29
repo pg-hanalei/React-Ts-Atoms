@@ -15,6 +15,7 @@ interface Props {
   onClick?: (event: MouseEvent<HTMLButtonElement> | any) => any;
   children?: ReactChild | ReactChild[];
   ref?: RefObject<HTMLButtonElement>;
+  dataTestId?: string;
 }
 
 const Button = styled.button`
@@ -29,6 +30,7 @@ export default memo(
   React.forwardRef(
     (
       {
+        dataTestId,
         onClick,
         className,
         disabled = false,
@@ -36,8 +38,10 @@ export default memo(
       }: PropsWithChildren<Props>,
       ref: ForwardedRef<HTMLButtonElement>
     ) => {
+      // console.log("button");
       return (
         <Button
+          data-testid={dataTestId}
           ref={ref}
           className={`btn ${className} ${disabled ? "disabled" : ""}`}
           disabled={

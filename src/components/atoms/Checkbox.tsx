@@ -49,7 +49,7 @@ export const CheckBoxList = memo(() => {
 
   useEffect(() => {
     //checkedItemsが空では無い場合、送信ボタンを表示させる
-    Object.keys(checkedItems).length && setIsBtnHide(false);
+    // Object.keys(checkedItems).length && setIsBtnHide(false);
 
     //すべてのcheckedItemの値がfalseの場合に送信ボタンを表示させる
     if (
@@ -83,10 +83,10 @@ export const CheckBoxList = memo(() => {
     //送信ボタンを押したタイミングで、checkedItemsオブジェクトのvalueがtrueのkeyのみを配列にしてconsoleに表示させる
     const dataPushArray = Object.entries(checkedItems).reduce(
       (pre, [key, value]) => {
-        value && pre.push(key);
-        // if (value) {
-        //   pre.push(key);
-        // }
+        // value && pre.push(key);
+        if (value) {
+          pre.push(key);
+        }
         return pre;
       },
       [] as string[]
